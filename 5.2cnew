@@ -1,0 +1,50 @@
+from tkinter import*
+import tkinter.font
+from gpiozero import LED
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
+
+
+win = Tk()
+win.title("Blink LED");
+font_type = tkinter.font.Font(family = "Aerial", size = 15, weight = "bold") 
+
+white1 = LED(4)
+red = LED(23)
+white2 = LED(24)
+
+val = IntVar()
+def Toggle_led():
+    value = val.get()
+    if value == 1:
+        white1.on()
+        red.off()
+        white2.off()
+
+    elif value == 2:
+        white1.off()
+        red.on()
+        white2.off()
+
+    elif value == 3:
+        white1.off()
+        red.off()
+        white2.on()
+    else:
+        white1.off()
+        red.off()
+        white2.off()
+        
+        
+    
+button1 = Radiobutton( win, text = "turn on white led 1", font = font_type, variable = val, value = 1, command = Toggle_led, height = 2, width = 20)
+button1.grid( row = 0, column = 1)
+
+button2 = Radiobutton( win, text = "turn on red led ", font = font_type, variable = val, value = 2, command = Toggle_led, height = 2, width = 20)
+button2.grid( row = 1, column = 1)
+
+button3 = Radiobutton( win, text = "turn on white led 2", font = font_type, variable = val, value = 3, command = Toggle_led, height = 2, width = 20)
+button3.grid( row = 2, column = 1)
+
+
+win.mainloop()
